@@ -2,9 +2,10 @@ import {setTimeout} from "node:timers/promises"
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export async function getPokemons() {
+    console.log("call function getPokemons")
     await setTimeout(1000 * 5)
 
-    const res = await fetch("https://pokeapi.co/api/v2/pokemon?limit=12")
+    const res = await fetch("https://pokeapi.co/api/v2/pokemon?limit=12", {cache: "no-store"})
     const data =  await res.json()
 
     const pokemons: {id: string,name: string}[] = []
@@ -18,9 +19,9 @@ export async function getPokemons() {
 }
 
 export async function getPokemon(id: string) {
-    await setTimeout(1000 * 5)
+    console.log("call function getPokemon", id)
 
-    const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
+    const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`, {cache: "no-store"})
     const data = await res.json()
     const detailRes = await fetch(data.species.url)
     const detail =  await detailRes.json()
@@ -34,10 +35,11 @@ export async function getPokemon(id: string) {
 }
 
 export async function getPokemonFlavorText(id: string) {
+    console.log("call function getPokemonFlavorText", id)
 
     await setTimeout(1000 * 10)
 
-    const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
+    const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`, {cache: "no-store"})
     const data = await res.json()
     const detailRes = await fetch(data.species.url)
     const detail =  await detailRes.json()
